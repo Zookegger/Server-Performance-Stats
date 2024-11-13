@@ -7,18 +7,18 @@ A bash script to analyze basic server performance Server-Performance-Stats
 
 ### 1. Clone the repository
 
----bash
+```bash
 git clone https://github.com/Zookegger/Server-Performance-Stats
----
+```
 
 ### 2, Make it executable
 
----bash
+```bash
 chmod -x server-stats.sh
----
+```
 
 ### 3. Run it
 
----bash
+```bash
 bash server-stats.sh
----
+```
