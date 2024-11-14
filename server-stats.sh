@@ -1,3 +1,4 @@
+#!/bin/bash
 echo "################################"
 echo "#   System uptime infomation   #"
 echo "################################"
@@ -11,7 +12,7 @@ echo "################################"
 echo "#       Total CPU Usage        #"
 echo "################################"
 
-top -bn 1 | grep "%Cpu" | cut -d "," -f 4 | awk '{printf "CPU Usage:" 100-$1 "%\n"}'
+top -bn 1 | grep "%Cpu" | cut -d "," -f 4 | awk '{printf "CPU Usage: " 100-$1 "%\n"}'
 
 echo
 
@@ -27,7 +28,13 @@ echo "################################"
 echo "#      Storage Infomation      #"
 echo "################################"
 
-df -h | grep -w "/" | awk '{print "Total: " $2 "\nUsed: " $3 "\nAvailable: " $4}'
+df -h | grep -E "C:|D:" | awk 'BEGIN {total=0; used=0; available=0}
+{
+    print $1 "\nTotal: " $2 "\nUsed: " $3 "\nAvailable: " $4 "\n"
+    total += substr($2, 1, length($2) - 1)
+    used += substr($3, 1, length($3) - 1) # Remove last character
+    available += substr($4, 1, length($4) - 1) #Remove last character
+}END {print "System\nTotal: " total"G" "\nTotal used: " used"G" "\nTotal available: " available"G"}' 
 
 echo
 
